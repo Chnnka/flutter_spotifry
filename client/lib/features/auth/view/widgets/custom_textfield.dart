@@ -16,6 +16,12 @@ class CustomTextfield extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(hintText: hintText),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "$hintText is missing";
+        }
+        return null;
+      },
     );
   }
 }

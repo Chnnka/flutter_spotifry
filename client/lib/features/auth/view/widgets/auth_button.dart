@@ -2,12 +2,14 @@ import 'package:client/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({super.key});
+  final String btnText;
+  final VoidCallback onTap;
+  const AuthButton({super.key, required this.btnText, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: 55,
@@ -20,9 +22,9 @@ class AuthButton extends StatelessWidget {
             ],
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
-            'Sign Up',
+            btnText,
             style: TextStyle(
               color: Pallete.backgroundColor,
               fontSize: 17,
