@@ -1,7 +1,9 @@
-from fastapi import FastAPI # type: ignore
+from fastapi import FastAPI
+from routes import auth
 
-app = FastAPI()
+app=FastAPI()
+app.include_router(auth.router)
 
-@app.get('/')
-def test(): 
-    return 'hello world'
+
+
+Base.metadata.create_all(engine)
