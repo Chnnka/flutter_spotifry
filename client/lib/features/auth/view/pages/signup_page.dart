@@ -1,4 +1,5 @@
 import 'package:client/core/theme/app_pallete.dart';
+import 'package:client/features/auth/repositories/auth_remote_repository.dart';
 import 'package:client/features/auth/view/widgets/auth_button.dart';
 import 'package:client/features/auth/view/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,13 @@ class _SignupPageState extends State<SignupPage> {
               ),
               const SizedBox(height: 20),
               AuthButton(
-                onTap: () {},
+                onTap: () async {
+                  await AuthRemoteRepository().signup(
+                    name: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
+                },
                 btnText: 'Sign Up',
               ),
               const SizedBox(height: 20),
