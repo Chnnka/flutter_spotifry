@@ -1,8 +1,10 @@
 import 'package:client/core/theme/app_pallete.dart';
 import 'package:client/features/auth/repositories/auth_remote_repository.dart';
+import 'package:client/features/auth/view/pages/login_page.dart';
 import 'package:client/features/auth/view/widgets/auth_button.dart';
 import 'package:client/features/auth/view/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -62,27 +64,42 @@ class _SignupPageState extends State<SignupPage> {
               const SizedBox(height: 20),
               AuthButton(
                 onTap: () async {
-                  await AuthRemoteRepository().signup(
+                  final res = await AuthRemoteRepository().signup(
                     name: nameController.text,
                     email: emailController.text,
                     password: passwordController.text,
                   );
+                  final val = switch (res) {
+                    Left(value: final l) => l,
+                    Right(value: final r) => r.toString(),
+                  };
+                  print(val);
                 },
                 btnText: 'Sign Up',
               ),
               const SizedBox(height: 20),
-              RichText(
-                text: const TextSpan(
-                  text: 'Already have an account?',
-                  children: [
-                    TextSpan(
-                      text: ' Sign In',
-                      style: TextStyle(
-                        color: Pallete.greenColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
                     ),
-                  ],
+                  );
+                },
+                child: RichText(
+                  text: const TextSpan(
+                    text: 'Already have an account?',
+                    children: [
+                      TextSpan(
+                        text: ' Sign In',
+                        style: TextStyle(
+                          color: Pallete.greenColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
